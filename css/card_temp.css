@@ -1,0 +1,82 @@
+body {
+    margin:0;
+    padding:0;
+    background: #fff url(bg.jpg) center center fixed no-repeat;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+.container_temp {
+  width: 280px;
+  height: 350px;
+}
+.card_temp {
+  float: left;
+  width: 280px;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-right: 10px;
+  background: #f9f9f9;
+  position: relative;
+  box-shadow: 0px 0px 3px #ddd;
+}
+.card_temp .inner_temp {
+  background: #f9f9f9;
+  border: 1px solid #e3e3e3;
+  border-radius: 0px 0px 5px 5px;
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  font-family: arial;
+  text-align: center;
+  box-shadow: inset 0px 0px 1px #fff;
+}
+.card_temp .inner_temp .title_temp {
+  display: block;
+  font-size: 20px;
+  color: #fff;
+  margin-top: -15px;
+}
+.card_temp .inner_temp .title_temp .text_temp {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+.card_temp .inner_temp .number_temp {
+  color: #313a3e;
+  font-size: 70px;
+  font-weight: bold;
+  display: block;
+  margin-top: 0px;
+}
+.card_temp .inner_temp .measure_temp {
+  color: #676767;
+  font-size: 25px;
+  display: block;
+  margin-top: -10px;
+}
+.temp {
+  background: #ec6f69;
+  border: 1px solid #de3932;
+}
+.temp .inner_temp {
+  border-top: 1px solid #de3932;
+}
+.temp .inner_temp .text_temp {
+  border: 3px solid #de3932;
+  background: #ec6f69;
+  text-shadow: 1px 1px 0px #de3932;
+}
+.temp .inner_temp .icon_temp {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: -200px;
+  left: 60px;
+  border: 5px solid #fff;
+  border-radius: 85px;
+  box-shadow: 1px 1px 0px #7dad0a;
+}

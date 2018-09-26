@@ -1,0 +1,60 @@
+.container_hum {
+  width: 280px;
+  height: 350px;
+  margin: 50px auto;
+}
+.card_hum {
+  float: left;
+  width: 280px;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 10px 10px 10px 10px;
+  margin-right: 10px;
+  background: #f9f9f9;
+  position: relative;
+  box-shadow: 0px 5px 5px #ddd;
+}
+.card_hum .inner_hum {
+  background: #d3d5ff;
+  border: 1px solid #6067f2;
+  border-radius: 10px 10px 10px 10px;
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  font-family: arial;
+  text-align: center;
+  box-shadow: inset 0px 0px 5px #fff;
+}
+.card_hum .inner_hum .title_hum {
+  display: inline-block;
+  font-size: 25px;
+  color: #000;
+  margin-top: 20px;
+}
+.card_hum .inner_hum .title_hum .text_hum {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+.humidity {
+  background: #f9f9f9;
+  border: 1px solid #6067f2;
+}
+.humidity .inner_hum {
+  border-top: 1px solid #6067f2;
+}
+.humidity .inner_hum .img_hum {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: -270px;
+  left: 25px;
+}
+.humidity .inner_hum .text_hum {
+
+  background: #d3d5ff;
+  text-shadow: 1px 1px 0px #6067f2;
+}

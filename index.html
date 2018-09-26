@@ -1,0 +1,270 @@
+<html ng-app="test_percDisplay">
+<head>
+   
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+   <link rel="stylesheet" href="css/card_temp.css">
+   <link rel="stylesheet" href="css/card_altitude.css">
+   <link rel="stylesheet" href="css/card_PM.css">
+   <link rel="stylesheet" href="css/card_hum.css">  
+   <link rel="stylesheet" href="css/card_light.css"> 
+   <link rel="stylesheet" href="css/card_UV.css"> 
+   <link rel="stylesheet" href="css/card_pressure.css">
+   <link rel="stylesheet" type="text/css" href="css/ngCanvasGauge.css" />
+   <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+   <script src="liquidFillGauge.js" language="JavaScript"></script>
+	<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+		<script type="text/javascript" src="gauge.js"></script>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+<title>IOT Agriculture</title>
+</head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+<body  ng-controller="mainController" onload="initialize()" style="font-family:Microsoft JhengHei">
+
+    <center>
+	<table>
+		<h1>環境監測</h1>
+        <table >
+                <tr >
+                    <td>   
+					    <div class='container_temp'>
+							<div class='card_temp temp'>
+							<div class='inner_temp'>
+							<div class='icon_temp'>
+							<img src="123.png" width="100%" height="100%" /></div>
+							<div class='title_temp'>
+								<div class='text_temp'>TEMPERATURE</div>
+							</div>
+							<div class='number_temp'></div>
+							<div class='measure_temp'>°C</div>
+							</div>
+							</div>
+						</div>
+					</td>
+                    <td>
+						<div class='container_alt'>
+						<div class='card_alt altitude'>
+							<div class='inner_alt'>
+							<div class='icon_alt'> </div>
+							<div class='img_alt'> 
+							<img src="456.png" width="100%" height="100%" /></div>
+							<div class='title_alt'>
+								<div class='text_alt'>ALTITUDE</div>
+							</div>
+							<div class='number_alt'></div>
+							<div class='measure_alt'>M</div>
+							</div>
+						</div>
+						</div>
+					</td>
+					<td>   
+					    <div class='container_PM'>
+						<div class='card_PM PM'>
+							<div class='inner_PM'>
+							<div class='img_PM'> 
+									<span id="PMGaugeContainer"></span>
+							</div>
+							<div class='title_PM'>
+								<div class='text_PM'>TEMPERATURE</div>
+							</div>
+							<div class='number_PM'></div>
+							<div class='measure_PM'>μg/m3</div>
+							</div>
+						</div>
+						</div>
+					</td>
+					<td>   
+					    <div class='container_light'>
+						<div class='card_light light'>
+							<div class='inner_light'>
+							<div class='img_light'> 
+								<canvas-gauge width="300" under-color="#bdc6ba" over-color="#666bff" value="light" mask="(@)" style="color: gray"></canvas-gauge>
+							</div>
+							<div class='title_light'>
+								<div class='text_light'>LIGHT</div>
+							</div>
+							<div class='number_light'></div>
+							<div class='measure_light'>cd</div>
+							</div>
+						</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					 <td>
+						<div class='container_hum'>
+						<div class='card_hum humidity'>
+							<div class='inner_hum'>
+							<div class='icon_hum'> </div>
+							<div class='img_hum'> 	<svg id="fillgauge2" width="150%" height="250" ></svg></div>
+							<div class='title_hum'>
+								<div class='text_hum'>HUMIDITY</div>
+							</div>
+							</div>
+						</div>
+						</div>
+					</td>
+					
+					<td>   
+					    <div class='container_UV'>
+						<div class='card_UV UV'>
+							<div class='inner_UV'>
+							<div class='img_UV'> 
+									<span id="UVGaugeContainer"></span>
+							</div>
+							<div class='title_UV'>
+								<div class='text_UV'>UV</div>
+							</div>
+							<div class='number_UV'></div>
+							<div class='measure_UV'></div>
+							</div>
+						</div>
+						</div>
+					</td>  
+					<td>   
+					    <div class='container_pressure'>
+							<div class='card_pressure pressure'>
+							<div class='inner_pressure'>
+							<div class='icon_pressure'>
+							<img src="hpa.png" width="100%" height="100%" /></div>
+							<div class='title_pressure'>
+								<div class='text_pressure'>PRESSURE</div>
+							</div>
+							<div class='number_pressure'></div>
+							<div class='measure_pressure'>hPa</div>
+							</div>
+						</div>
+						</div>
+					</td> 
+				<td>
+				<iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:350px;height:125px;
+				"src="https://www.clocklink.com/html5embed.php?clock=044&timezone=Taiwan_Taipei&color=white&size=450&Title=&Message=&Target=&From=2018,1,1,0,0,0&Color=white"></iframe>
+				</td>  					
+                </tr>
+        </table>
+        <br />   
+    </center>
+    <script src="js/angular.min.js" type="text/javascript"></script>
+    <script src="js/ngCanvasGauge.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	setTimeout("location.reload();",100000);
+	 var te;
+	 var a;
+	 var p;
+	 var li;
+	 var humidity_index;
+	 var uv_index;
+	 var pre;
+    $.getJSON("https://api.thingspeak.com/channels/576293/feeds/last.json?key=XVSZCA88ZSWEQ9TK", function(data) {
+		{
+		te=data.field1;
+		a=data.field2;
+		p=data.field3;
+		li=data.field4;
+		uv_index=data.field6;
+	    pre=data.field7;	
+		$(".number_PM").append(p);
+		$(".number_light").append(li);
+		$(".number_alt").append(a);
+		$(".number_temp").append(te);
+		$(".number_UV").append(uv_index);
+		$(".number_pressure").append(pre);
+				}			
+       	});		
+	 $.getJSON("https://api.thingspeak.com/channels/576293/feeds/last.json?key=XVSZCA88ZSWEQ9TK", function(data) {
+		{
+		humidity_index=data.field5;
+		var config1 = liquidFillGaugeDefaultSettings();
+    config1.circleColor = "#3321ff";
+    config1.textColor = "#3321ff";
+    config1.waveTextColor = "#000463";
+    config1.waveColor = "#707eff";
+    config1.circleThickness = 0.1;
+    config1.textVertPosition = 0.5;
+    config1.waveAnimateTime = 1000;
+    var gauge1= loadLiquidFillGauge("fillgauge2",humidity_index , config1);
+		}			
+       	}); 
+/*============================================================================================*/
+			var gauges_PM = [];
+			var gauges_UV = [];
+			function createGauge_PM(name, label, min, max)
+			{
+				var config = 
+				{
+					size: 180,
+					label: label,
+					min: undefined != min ? min : 0,
+					max: undefined != max ? max : 500,
+					minorTicks: 0.1
+				}			
+				var range = config.max - config.min;
+				config.greenZones = [{ from: config.min , to: config.min + range*0.1 }];
+				config.yellowZones = [{ from: config.min + range*0.1, to: config.min + range*0.2 }];
+				config.orangeZones = [{ from: config.min + range*0.2, to: config.min + range*0.3 }];
+				config.redZones = [{ from: config.min + range*0.3, to: config.min + range*0.4 }];
+				config.purpleZones = [{ from: config.min + range*0.4, to: config.min + range*0.6 }];
+				config.brownZones = [{ from: config.min + range*0.6, to: config.max }];
+				
+				gauges_PM[name] = new Gauge(name + "GaugeContainer", config);
+				gauges_PM[name].render();
+			}
+			function createGauge_UV(name, label, min, max)
+			{
+				var config = 
+				{
+					size: 180,
+					label: label,
+					min: undefined != min ? min : 0,
+					max: undefined != max ? max : 11,
+					minorTicks: 0.1
+				}
+				
+				var range = config.max - config.min;
+				config.greenZones = [{ from: config.min , to: config.min+2 }];
+				config.yellowZones = [{ from: config.min+2, to: config.min + 5 }];
+				config.orangeZones = [{ from: config.min+5, to: config.min + 7 }];
+				config.redZones = [{ from: config.min+7, to: config.min + 10 }];
+				config.purpleZones = [{ from: config.min+10, to: config.max }];
+				gauges_UV[name] = new Gauge(name + "GaugeContainer", config);
+				gauges_UV[name].render();
+			}
+			function createGauges_PM()
+			{
+				createGauge_PM("PM", "",0, 500 );
+			}
+			function createGauges_UV()
+			{
+				createGauge_UV("UV","",0,12);
+				//createGauge("test", "Test", -50, 50 );
+			}			
+			function updateGauges()
+			{
+				for (var key in gauges_PM)
+				{
+					var value = p;
+					gauges_PM[key].redraw(value);
+				}
+			}
+			function updateGauges_UV()
+			{
+				for (var key in gauges_UV)
+				{
+					var value = uv_index;
+					gauges_UV[key].redraw(value);
+				}
+			}				
+			function initialize()
+			{
+				createGauges_UV();
+				setInterval(updateGauges_UV, 5000);
+				createGauges_PM();
+				setInterval(updateGauges, 5000);
+			}
+		</script>
+</body>
+</html>
